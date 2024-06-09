@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modo de Dispensación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .container h1 {
+            margin-bottom: 20px;
+        }
+        .container select, .container button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const select = document.getElementById("dispenseMode");
+            const savedMode = localStorage.getItem("dispenseMode") || "efficient";
+
+            select.value = savedMode;
+
+            document.getElementById("saveButton").addEventListener("click", function() {
+                const selectedMode = select.value;
+                localStorage.setItem("dispenseMode", selectedMode);
+                window.location.href = "index.html";
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Seleccionar Modo de Dispensación</h1>
+        <select id="dispenseMode">
+            <option value="efficient">Eficiente (100, 200, 500, 1000)</option>
+            <option value="mode1">Modo 1 (200, 1000)</option>
+            <option value="mode2">Modo 2 (100, 500)</option>
+        </select>
+        <button id="saveButton">Guardar</button>
+    </div>
+</body>
+</html>

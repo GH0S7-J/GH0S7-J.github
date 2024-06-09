@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gracias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .message {
+            text-align: center;
+        }
+        .message h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        .message p {
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+    <script>
+        let countdown = 5;
+        function updateMessage() {
+            if (countdown > 0) {
+                document.getElementById('countdown').textContent = countdown;
+                countdown--;
+                setTimeout(updateMessage, 1000);
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+        window.onload = function() {
+            updateMessage();
+        };
+    </script>
+</head>
+<body>
+    <div class="message">
+        <h1>Gracias por usar nuestro cajero automático</h1>
+        <p>Será redirigido al inicio en <span id="countdown">5</span> segundos...</p>
+    </div>
+</body>
+</html>

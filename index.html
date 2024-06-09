@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cajero Automático</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .atm-screen {
+            background-color: #fff;
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .atm-screen h1 {
+            margin-bottom: 20px;
+        }
+        .atm-screen button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .atm-screen button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="atm-screen">
+        <h1>Cajero Automático</h1>
+        <button onclick="withdrawMoney()">Retirar Dinero</button>
+        <button onclick="dispensationmode()">Modo de Dispensación</button>
+        <button onclick="exit()">Salir</button>
+    </div>
+
+    <script>
+        function withdrawMoney() {
+            window.location.href = 'retiro.html';
+        }
+        function dispensationmode() {
+            window.location.href = 'dispensacion.html';
+        }
+        function exit() {
+            return;
+        }
+    </script>
+</body>
+</html>

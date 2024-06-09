@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirar Dinero</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .container h1 {
+            margin-bottom: 20px;
+        }
+        .container input, .container button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .dispensation-box {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Retirar Dinero</h1>
+        <input type="number" id="amount" placeholder="Ingrese la cantidad a retirar" min="1">
+        <button onclick="dispenseMoney()">Retirar</button>
+        <button onclick="exit()">Salir</button>
+         <div id="dispensationBox" class="dispensation-box"></div>
+    </div>
+    <script>
+        function dispenseMoney() {
+            const amount = parseInt(document.getElementById('amount').value);
+            const mode = localStorage.getItem('dispenseMode') || 'efficient';
+            let bills = [];
+            let modeName = '';
+
+            if (isNaN(amount) || amount % 1 !== 0) {
+                alert('El monto debe ser un número entero.');
+                return;
+            }
+
+            switch (mode) {
+                case 'mode1':
+                    bills = calculateBills(amount, [1000, 200]);
+                    modeName = '200 y 1000';
+                    break;
+                case 'mode2':
+                    bills = calculateBills(amount, [500, 100]);
+                    modeName = '100 y 500';
+                    break;
+                case 'efficient':
+                default:
+                    bills = calculateBills(amount, [1000, 500, 200, 100]);
+                    modeName = '100, 200, 500, 1000';
+                    break;
+            }
+
+            if (bills.length > 0) {
+                const billCounts = countBills(bills);
+                const billMessage = Object.keys(billCounts)
+                    .map(bill => `${bill} (x${billCounts[bill]})`)
+                    .join(', ');
+                 updateDispensationBox(`Dispensando billetes: ${billMessage}`);
+            } else{
+                 updateDispensationBox(`Este cajero solo dispensa papeletas de ${modeName}.`);
+            }
+            setTimeout(clearDispensationBox, 10000);
+        }
+
+        function calculateBills(amount, denominations) {
+            let result = [];
+            for (let bill of denominations) {
+                while (amount >= bill) {
+                    result.push(bill);
+                    amount -= bill;
+                }
+            }
+            return amount === 0 ? result : [];
+        }
+
+        function countBills(bills) {
+            return bills.reduce((acc, bill) => {
+                acc[bill] = (acc[bill] || 0) + 1;
+                return acc;
+            }, {});
+        }
+
+        function updateDispensationBox(message) {
+            const dispensationBox = document.getElementById('dispensationBox');
+            dispensationBox.textContent = message;
+        }
+
+        function clearDispensationBox() {
+            const dispensationBox = document.getElementById('dispensationBox');
+            dispensationBox.textContent = '';
+        }
+ 
+
+        function exit() {
+            window.location.href = 'exit.html';
+        }
+    </script>
+</body>
+</html>
